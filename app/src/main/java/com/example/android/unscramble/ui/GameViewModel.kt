@@ -72,9 +72,9 @@ class GameViewModel : ViewModel() {
             _uiState.update { currentState ->
                 currentState.copy(isGuessedWordWrong = true)
             }
-            // Reset user guess
-            updateUserGuess("")
         }
+        // Reset user guess
+        updateUserGuess("")
     }
 
     private fun updateGameState(updatedScore: Int) {
