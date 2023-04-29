@@ -35,16 +35,17 @@ import kotlinx.coroutines.GlobalScope
 class MainActivity : ComponentActivity() {
 
     lateinit private var myApplication : MyApplication
-
     private lateinit var gameViewModel: GameViewModel
+    private lateinit var gameRepository: WordRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         myApplication = applicationContext as MyApplication
+        gameRepository = myApplication.container.wordRepository
         gameViewModel = ViewModelProvider(
             owner = this,
-            factory = GameViewModelFactory(WordRepository(WordDatabase.getInstance(context = applicationContext)!!))
+            factory = GameViewModelFactory(gameRepository)
         ).get(GameViewModel::class.java)
 
         setContent {

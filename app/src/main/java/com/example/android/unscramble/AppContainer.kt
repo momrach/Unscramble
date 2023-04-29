@@ -12,9 +12,10 @@ import android.content.Context
 
 /**
  * [AppContainer] implementation that provides instance of [WordRepository]
+ * [AppContainer] implementation that provides instance of [WordDatabase]
  */
 class AppDataContainer(private val context: Context) {
-
+    val gameDatabase = WordDatabase.getInstance(context)
     val wordRepository: WordRepository
-        get() = WordRepository(WordDatabase.getInstance(context)!!)
+        get() = WordRepository(gameDatabase!!)
 }
