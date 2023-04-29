@@ -22,12 +22,30 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModelProvider
+import com.example.android.unscramble.data.WordDatabase
+import com.example.android.unscramble.data.WordRepository
 import com.example.android.unscramble.ui.GameScreen
+import com.example.android.unscramble.ui.GameViewModel
+import com.example.android.unscramble.ui.GameViewModelFactory
 import com.example.android.unscramble.ui.theme.UnscrambleTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 
 class MainActivity : ComponentActivity() {
+
+    lateinit private var myApplication : MyApplication
+
+    private lateinit var gameViewModel: GameViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        myApplication = applicationContext as MyApplication
+        gameViewModel = ViewModelProvider(
+            owner = this,
+            factory = GameViewModelFactory(WordRepository(WordDatabase.getInstance(context = applicationContext)!!))
+        ).get(GameViewModel::class.java)
 
         setContent {
             UnscrambleTheme {
@@ -35,10 +53,14 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    GameScreen()
+                    GameScreen(gameViewModel =gameViewModel)
                 }
             }
         }
     }
+
+
+
+
 }
 
