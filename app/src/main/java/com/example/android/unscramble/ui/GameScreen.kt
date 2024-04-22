@@ -54,6 +54,9 @@ fun GameScreen(
     modifier: Modifier = Modifier,
     gameViewModel: GameViewModel = viewModel()
 ) {
+    // Recoge el estado del juego
+    //collectasState() es una función de Kotlin que recoge el estado del flujo
+    // y lo convierte en un valor que se puede usar en el composable
     val gameUiState by gameViewModel.uiState.collectAsState()
 
     Column(
